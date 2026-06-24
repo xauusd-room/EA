@@ -577,6 +577,18 @@ showPage(1);
 
 </body>
 
+<script>
+fetch('articles.json')
+  .then(res => res.json())
+  .then(data => {
+      console.log('文章数据：', data);
+  })
+  .catch(err => {
+      console.error('读取失败：', err);
+  });
+</script>
+
+
 </body>
 
 </html>
