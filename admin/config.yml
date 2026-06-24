@@ -1,5 +1,5 @@
 backend:
-  name: github
+  name: git-gateway
   branch: main
 
 media_folder: "resources"
@@ -14,11 +14,7 @@ collections:
 
     fields:
       - {label: "标题", name: "title", widget: "string"}
-
       - {label: "简介", name: "description", widget: "text"}
-
       - {label: "发布时间", name: "date", widget: "datetime"}
-
       - {label: "封面图", name: "thumbnail", widget: "image"}
-
       - {label: "正文", name: "body", widget: "markdown"}
