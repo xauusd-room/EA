@@ -1,24 +1,16 @@
 backend:
-  name: github
-  repo: 375750526-cell/Repository-name-gold-trading-room
+  name: git-gateway
   branch: main
 
 media_folder: "resources"
 public_folder: "/resources"
 
-
 collections:
   - name: "posts"
     label: "文章"
-    folder: ""
+    folder: "posts"
     create: true
     slug: "{{slug}}"
-
     fields:
-      - label: "标题"
-        name: "title"
-        widget: "string"
-
-      - label: "正文"
-        name: "body"
-        widget: "markdown"
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "正文", name: "body", widget: "markdown" }
