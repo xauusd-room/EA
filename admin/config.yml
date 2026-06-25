@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: https://xauusd-room.github.io/EA/
   branch: main
+
 
 media_folder: "resources"
 public_folder: "/resources"
