@@ -1,89 +1,359 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
+
 <head>
+
 <meta charset="UTF-8">
-<title>文章详情</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>XAUUSD Room</title>
+
+
 <style>
+
+*{
+box-sizing:border-box;
+}
+
+
 body{
-    max-width:900px;
-    margin:40px auto;
-    padding:20px;
-    font-family:Arial,sans-serif;
-    line-height:1.8;
+
+margin:0;
+
+background:#f6f7fb;
+
+font-family:
+"Microsoft YaHei",
+Arial;
+
+color:#222;
+
 }
+
+
+.header{
+
+background:#111827;
+
+color:white;
+
+padding:18px 30px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+
+.logo{
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+
+.nav a{
+
+color:white;
+
+margin-left:20px;
+
+text-decoration:none;
+
+}
+
+
+
+.container{
+
+max-width:900px;
+
+margin:40px auto;
+
+background:white;
+
+padding:40px;
+
+border-radius:15px;
+
+}
+
+
+
+.back{
+
+display:inline-block;
+
+margin-bottom:20px;
+
+color:#2563eb;
+
+text-decoration:none;
+
+}
+
+
+
 h1{
-    margin-bottom:10px;
+
+font-size:38px;
+
+line-height:1.3;
+
 }
+
+
+
 .meta{
-    color:#888;
-    margin-bottom:20px;
+
+color:#888;
+
+margin:15px 0 30px;
+
 }
-img{
-    max-width:100%;
+
+
+
+.cover{
+
+width:100%;
+
+border-radius:12px;
+
+margin-bottom:30px;
+
 }
+
+
+
+.content{
+
+font-size:18px;
+
+line-height:2;
+
+}
+
+
+
+.content h2{
+
+margin-top:35px;
+
+}
+
+
+
+.content img{
+
+max-width:100%;
+
+border-radius:10px;
+
+}
+
+
+
+.content strong{
+
+font-weight:bold;
+
+}
+
+
+
 </style>
+
 </head>
+
 
 <body>
 
-<h1 id="title">加载中...</h1>
+
+
+<header class="header">
+
+
+<div class="logo">
+XAUUSD Room
+</div>
+
+
+<nav class="nav">
+
+<a href="index.html">
+首页
+</a>
+
+
+<a href="videos.html">
+视频
+</a>
+
+
+<a href="free-resources.html">
+资源
+</a>
+
+
+</nav>
+
+
+</header>
+
+
+
+
+
+<div class="container">
+
+
+
+<a class="back" href="index.html">
+← 返回首页
+</a>
+
+
+
+<h1 id="title">
+加载中...
+</h1>
+
+
 
 <div class="meta" id="date"></div>
 
-<img id="thumbnail" style="display:none;">
 
-<div id="content"></div>
+
+<img
+id="thumbnail"
+class="cover"
+style="display:none"
+>
+
+
+
+<div
+id="content"
+class="content">
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
 
 <script>
+
+
 const params =
 new URLSearchParams(location.search);
+
+
 
 const file =
 params.get("post");
 
+
+
+
 if(file){
 
-    fetch("posts/" + file)
 
-    .then(r=>r.text())
+fetch("posts/"+file)
 
-    .then(text=>{
 
-        const title =
-        text.match(/title:\s*"(.*?)"/);
+.then(r=>r.text())
 
-        const date =
-        text.match(/date:\s*(.*)/);
 
-        const thumbnail =
-        text.match(/thumbnail:\s*(.*)/);
+.then(text=>{
 
-        document.getElementById("title").innerText =
-        title ? title[1] : "";
 
-        document.getElementById("date").innerText =
-        date ? date[1] : "";
+const title =
+text.match(/title:\s*(.*)/);
 
-        if(thumbnail){
 
-            document.getElementById("thumbnail").src =
-            thumbnail[1];
+const date =
+text.match(/date:\s*(.*)/);
 
-            document.getElementById("thumbnail").style.display =
-            "block";
-        }
 
-        const body =
-        text.split("---").pop();
 
-        document.getElementById("content").innerText =
-        body.trim();
+const thumbnail =
+text.match(/thumbnail:\s*(.*)/);
 
-    });
+
+
+document
+.getElementById("title")
+.innerText =
+title ? title[1] : "";
+
+
+
+document
+.getElementById("date")
+.innerText =
+date ? date[1] : "";
+
+
+
+
+
+if(thumbnail){
+
+
+const img =
+document.getElementById("thumbnail");
+
+
+img.src =
+thumbnail[1];
+
+
+img.style.display =
+"block";
+
 
 }
+
+
+
+
+
+const body =
+text.split("---").pop();
+
+
+
+document
+.getElementById("content")
+.innerHTML =
+marked.parse(body);
+
+
+
+
+});
+
+
+}
+
+
 </script>
+
+
 
 </body>
 </html>
