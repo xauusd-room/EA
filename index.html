@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOZENO™ - 金融科技量化 EA</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;}
+body{background: #050505;font-family: sans-serif;color: #ffffff;}
+
+/* =====================导航栏布局===================== */
+header {
+    height: 90px;
+    background: #0b0c0e;
+    border-bottom: 1px solid #1c1e22;
+    width: 100%; 
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+.header-container {
+    max-width: 1920px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;      
+    padding: 0 40px; 
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    letter-spacing: +1px;
+    display: flex;
+    align-items: flex-end;
+    line-height: 1;
+}
+
+.logo span {
+    font-size: 13px !important;
+    color: #717681 !important;
+    margin-left: 12px !important;
+    font-weight: 500;
+    padding-bottom: 2px !important; 
+    line-height: 1;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #717681 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    transition: color 0.2s ease !important;
+}
+
+nav a:hover {
+    color: #ffd043 !important; 
+}
+
+@keyframes button-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 208, 67, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(255, 208, 67, 0.5); }
+}
+
+nav ul li:last-child a {
+    background-color: #ffd043 !important;
+    color: #000000 !important;
+    padding: 8px 22px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    display: inline-block;
+    animation: button-glow 2.5s infinite ease-in-out !important; 
+    transition: background-color 0.2s, transform 0.1s !important;
+}
+
+nav ul li:last-child a:hover {
+    background-color: #e0a927 !important;
+    color: #000000 !important;
+}
+
+/* =====================主体网格布局（文章）===================== */
+.container{
+    width:1600px;
+    max-width:95%;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:30px;
+}
+
+.content{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.card{
+    background:#0f1115;
+    border: 1px solid #1c1e22;
+    border-radius:12px;
+    overflow:hidden;
+    transition:0.3s;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color: #ffd043;
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    height:180px;
+}
+
+.card h3{
+    font-size:20px;
+    line-height:1.5;
+    margin-bottom:12px;
+    min-height:60px;
+}
+
+.card h3 a{
+    text-decoration:none;
+    color:#ffffff;
+}
+.card h3 a:hover{
+    color:#ffd043;
+}
+
+.card p{
+    color:#717681;
+    line-height:1.8;
+    font-size:14px;
+    flex:1;
+}
+
+.date{
+    margin-top:auto;
+    padding-top:15px;
+    color:#999;
+    font-size:13px;
+}
+
+@media(max-width:1200px){.content{grid-template-columns:repeat(2,1fr); }} 
+@media(max-width:900px)
+    {.container{grid-template-columns:1fr; }.content{grid-template-columns:1fr;}
+        header{flex-direction:column;height:auto;padding:20px;}
+        nav ul{margin-top:15px;flex-wrap:wrap;justify-content:center;}
+    }
+
+.content-intro-text {
+    text-align: center; 
+    grid-column: 1 / -1; 
+    margin-top: 100px;
+    margin-bottom: 35px;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.content-intro-text h2 {
+    color: #ffd043 !important; 
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    margin-bottom: 12px !important;
+}
+
+.content-intro-text p {
+    color: #717681 !important; 
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+}
+
+.content-intro-text + div:not(.content) {
+    display: none !important;
+}
+
+.content-footer-text {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    width: 100%;
+    background-image: url('footer-bg.png') !important; 
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    padding: 600px 40px !important; 
+    border-radius: 12px !important; 
+}
+
+.content-footer-text h3 {
+    color: #ffd043 !important; 
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    margin-bottom: 12px !important;
+}
+
+.content-footer-text p {
+    color: #e5e5e5 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#888;
+}
+</style>
+</head>
+<body>
+<header> <div class="header-container">
+    <div class="logo">
+        LOZENO.EA
+        <span>STRATEGY.FRIST</span>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="#">最新分析</a></li>
+            <li><a href="videos.html">最新视频</a></li>
+            <li><a href="free-resources.html">免费资源</a></li>
+            <li><a href="#">会员服务</a></li>
+        </ul>
+    </nav>
+</div>
+</header>
+
+
+
+
+
+
+
+<!-- ⬇️ 【完整内容】居中文案组件：横跨3列，不破坏大框架 ⬇️ -->
+<div class="container">
+    <div class="content-intro-text">
+        <h2>欢迎来到 XAUUSD.EA 黄金策略分析中心</h2>
+        <p>这里可以填写你的副标题或任何你想说的话，它会自动在 6 个卡片上方完美居中展示。</p>
+    </div>
+    <div class="content" id="articleContainer"><!-- 这里由 JavaScript 动态生成卡片 --></div>
+    <div class="pagination" id="pagination"></div>
+    <div class="content-footer-text">
+        <h3>© XAUUSD.EA 技术支持与风险提示</h3>
+        <p>这里可以填写你网站的版权声明、风险提示、免责细则，或者任何你想对读者说的话。它会自动在 4 个卡片的正下方完美居中并横向铺满展示。</p>
+    </div>    
+</div>
+
+<footer>
+    © 2026 zackxau | Gold Trading Room
+</footer>
+
+<script>
+const cardsPerPage = 6;
+let currentPage = 1;
+let allCards = [];
+
+// 分页切换显示逻辑
+function showPage(page){
+    currentPage = page;
+    allCards.forEach((card, index) => {
+        if(index >= (page - 1) * cardsPerPage && index < page * cardsPerPage) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    createButtons();
+}
+
+// 动态创建分页按钮
+function createButtons(){
+    const totalPages = Math.ceil(allCards.length / cardsPerPage);
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    for(let i = 1; i <= totalPages; i++){
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        if(i === currentPage){
+            btn.classList.add('active');
+        }
+        btn.onclick = () => showPage(i);
+        pagination.appendChild(btn);
+    }
+}
+
+// 异步抓取 JSON 数据并渲染
+fetch('articles.json')
+.then(res => res.json())
+.then(data => {
+    const container = document.getElementById('articleContainer');
+    container.innerHTML = ''; // 清空容器
+
+    data.forEach(article => {
+        container.innerHTML += `
+        <div class="card">
+            <a href="${article.url}">
+                <img src="${article.thumbnail}">
+            </a>
+            <div class="card-content">
+                <h3>
+                    <a href="${article.url}">
+                        ${article.title}
+                    </a>
+                </h3>
+                <p>${article.description}</p>
+                <div class="date">
+                    ${article.date}
+                </div>
+            </div>
+        </div>
+        `;
+    });
+
+    // 渲染完成后获取所有的卡片节点，并初始化分页
+    allCards = document.querySelectorAll('.card');
+    showPage(1);
+})
+.catch(err => {
+    console.error("加载文章数据失败:", err);
+});
+</script>
+</body>
+</html>
