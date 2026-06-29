@@ -95,9 +95,7 @@ nav ul li:last-child a:hover {
     width:1600px;
     max-width:95%;
     margin:30px auto;
-    display:grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 12px !important;
+    gap:30px;
 }
 
 .content{
@@ -210,7 +208,8 @@ nav ul li:last-child a:hover {
     }
     
     .content {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: (2, 1fr) !important;
+        gap: 12px !important; 
     }
 }
 
