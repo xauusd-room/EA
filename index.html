@@ -1,500 +1,619 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LOZENO™ - 金融科技量化 EA</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;}
-/* ===================== 全局与头部 (Header) ===================== */
-/* ===================== 全局与头部 (Header) ===================== */
-body {
-    background-color: #050505; /* 确保深色系网页不会出现白屏 */
-    color: #ffffff;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-header {
-    height: 90px;
-    background: #0b0c0e;
-    border-bottom: 1px solid #1c1e22;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-}
-
-.header-container {
-    max-width: 1400px;
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    box-sizing: border-box;
-}
-
-.logo {
-    font-size: 28px;        /* 略微缩小主标题字号，让上下排版更精致 */
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: 1px;
-    display: flex;
-    flex-direction: column; /* 💡 核心：把横向排列改为纵向（上下结构） */
-    align-items: center;    /* 💡 核心：让子元素大字和小字整体居中对齐 */
-    text-align: center;     /* 💡 核心：确保文字内容本身也是居中的 */
-    line-height: 1.1;
-}
-
-.logo span {
-    font-size: 11px;
-    color: #717681;
-    margin-left: 0;
-    margin-top: 4px;        /* 控制小字和上面大字的距离 */
-    letter-spacing: 1.5px;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 40px;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-nav a {
-    text-decoration: none;
-    color: #717681;
-    font-size: 14px;
-    font-weight: 600;
-    transition: 0.2s;
-}
-
-nav a:hover {
-    color: #ffd043;
-}
-
-nav ul li:last-child a {
-    background: #ffd043;
-    color: #000000;
-    padding: 8px 22px;
-    border-radius: 30px;
-    font-weight: 700;
-    transition: 0.2s;
-}
-
-nav ul li:last-child a:hover {
-    background: #e0a927;
-    color: #000000;
-    transform: translateY(-1px);
-}
-
-/* ===================== 💡 重新调校的 100% 铺满首屏 Hero 样式 ===================== */
-.content-intro-text {
-    position: relative;
-    width: 100%;
-
-    /* 💡 核心：锁死高度为 100vh 减去头部导航栏的 90px。确保大背景图完美占满第一屏 */
-    height: calc(100vh - 90px);
-    min-height: 700px; /* 提高硬性防护底线，确保任何屏幕尺寸都有足够的高空间展示所有内容 */
-
-    /* 💡 核心优化：高规格自适应背景图调校 */
-    background-image: url('intro-bg.png');
-    background-size: cover;        /* 完美缩放：背景图全自动等比例切割，100%铺满容器 */
-    background-position: center;   /* 完美对齐：背景图的核心视觉点永远死死锁定在屏幕正中央 */
-    background-repeat: no-repeat;  /* 防止重复平铺 */
-    background-attachment: scroll; /* 确保在移动端滚动时背景图不会产生异常形变 */
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-.intro-overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle,
-        rgba(5,5,5,0.70) 0%,
-        rgba(5,5,5,0.98) 100%
-    );
-    z-index: 1;
-}
-
-.intro-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 1200px;
-    width: 100%;
-    height: 100%;
-
-    /* 💡 核心空间解耦：通过 padding 控制上下安全区域 */
-    padding: 0 0 40px 0; /* 底部预留40px呼吸边距 */
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-}
-
-/* 💡 新增：通过智能推顶技术，把上方所有文字和联系方式垂直向下平滑推送，同时确保底部4个大卡片死死卡在最底端不乱动 */
-.intro-hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: auto; /* ⚡ 黄金魔法属性：把上方内容往下推到黄金视觉点 */
-}
-
-.content-intro-text h2 {
-    color: #ffd043;
-    font-size: 72px;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    line-height: 1.1;
-}
-
-/* 副标题微调 */
-.hero-subtitle {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.8);
-    opacity: 0.85;
-}
-
-.time-highlight {
-    color: #ffd043;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-/* 呼吁行动按钮 */
-.lozeno-cta-btn {
-    margin-top: 10px;
-    background: #ffd043;
-    color: #000;
-    border: none;
-    padding: 14px 40px;
-    border-radius: 16px;
-    font-size: 18px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.lozeno-cta-btn:hover {
-    transform: scale(1.03);
-    background: #e0a927;
-}
-
-/* ===================== 💡 夹在中间的轻量级联系区样式 ===================== */
-.lz-contact-section-inline {
-    width: 100%;
-    margin-top: 35px;     /* 控制联系胶囊和上方按钮的距离 */
-    margin-bottom: auto;  /* ⚡ 黄金魔法属性：确保和底部四大优势中间产生弹性呼吸空隙，让整体结构绝不上浮 */
-    display: flex;
-    justify-content: center;
-}
-
-.contact-methods-inline {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.contact-tag-inline {
-    background: rgba(15, 17, 21, 0.85);
-    border: 1px solid rgba(255, 208, 67, 0.2); /* 微弱黑金发光边框 */
-    padding: 12px 28px;
-    border-radius: 50px;
-    font-size: 15px;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
-
-.contact-tag-inline:hover {
-    border-color: #ffd043;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(255, 208, 67, 0.1);
-}
-
-.card-icon-inline {
-    font-size: 18px;
-}
-
-.lz-highlight-inline {
-    color: #ffd043;
-    font-weight: 800;
-}
-
-/* ===================== 统计数据区 (Stats) ===================== */
-.intro-stats {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 120px; /* 完美承载在1200宽内 */
-    width: 100%;
-    margin-top: 40px; /* 给卡片上方留出固定间距 */
-    margin-bottom: 0;
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.stat-item h3 {
-    color: #ffd043;
-    font-size: 36px;
-    font-weight: 800;
-    margin: 0 0 12px 0;
-    letter-spacing: -0.5px;
-    font-family: 'SF Pro Display', '-apple-system', 'Roboto', sans-serif;
-}
-
-.stat-item p {
-    color: #565b66;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-shadow: none;
-    margin: 0;
-}
-
-/* ===================== 💡 移出来的独立仪表盘大盒子样式 ===================== */
-.independent-dashboard-section {
-    width: 100%;
-    background: #050505;
-    padding: 100px 20px 60px 20px; /* 给予它极为宽敞的上下滚动呼吸空间 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-}
-
-.lz-dashboard-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-}
-
-.lz-db-dashboard {
-    width: 480px;
-    background: rgba(15, 15, 15, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 24px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    box-sizing: border-box;
-}
-
-.lz-db-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    padding-bottom: 14px;
-    margin-bottom: 20px;
-}
-
-.lz-db-status {
-    font-size: 14px;
-    font-weight: 600;
-    color: #8a9bb4;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.lz-db-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #00ff66;
-    border-radius: 50%;
-    animation: lz-status-pulse 2s infinite ease-in-out;
-}
-
-@keyframes lz-status-pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
-}
-
-.lz-db-tag {
-    font-size: 11px;
-    background: rgba(0, 255, 102, 0.06);
-    border: 1px solid rgba(0, 255, 102, 0.15);
-    padding: 4px 10px;
-    border-radius: 4px;
-    color: #00ff66;
-    font-weight: 600;
-}
-
-.lz-db-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.lz-db-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: left;
-}
-
-.lz-db-label {
-    font-size: 12px;
-    color: #565b66;
-    font-weight: 500;
-    line-height: 1.2;
-}
-
-.lz-db-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1;
-}
-
-.lz-db-gold { color: #ffd043; }
-.lz-db-green { color: #00ff66; }
-
-.lz-db-chart-box {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 16px;
-}
-
-.lz-db-chart-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    margin-bottom: 12px;
-}
-
-.lz-db-chart-title { color: #565b66; }
-.lz-db-chart-percent { color: #00ff66; font-weight: 700; }
-
-.lz-db-svg {
-    width: 100%;
-    height: 60px;
-    display: block;
-}
-
-.lz-db-svg path {
-    stroke: #ffd043;
-    stroke-width: 2.5;
-    fill: none;
-    stroke-linecap: round;
-    filter: drop-shadow(0px 2px 8px rgba(255, 208, 67, 0.4));
-}
-
-/* ===================== 主体网格布局（文章列表） ===================== */
-.container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 30px auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-.content {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
-
-.card {
-    background: #0f1115;
-    border: 1px solid #1c1e22;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: 0.3s;
-    box-shadow: 0 2px 10px rgba(0,0,0,.05);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #ffd043;
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-.card-content {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    height: 180px;
-    box-sizing: border-box;
-}
-
-.card h3 {
-    font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    min-height: 60px;
-}
-
-.card h3 a {
-    text-decoration: none;
-    color: #ffffff;
-}
-
-.card h3 a:hover {
-    color: #ffd043;
-}
-
-.card p {
-    color: #717681;
-    line-height: 1.8;
-    font-size: 14px;
-    flex: 1;
-    margin: 0;
-}
-
-.date {
-    margin-top: auto;
-
-
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOZENO™ - 金融科技量化 EA</title>
+    <style>* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* ===================== 全局与头部 (Header) ===================== */
+    /* ===================== 全局与头部 (Header) ===================== */
+    body {
+        background-color: #050505; /* 确保深色系网页不会出现白屏 */
+        color: #ffffff;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    header {
+        height: 90px;
+        background: #0b0c0e;
+        border-bottom: 1px solid #1c1e22;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+    }
+
+    .header-container {
+        max-width: 1400px;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 40px;
+        box-sizing: border-box;
+    }
+
+    .logo {
+        font-size: 28px; /* 略微缩小主标题字号，让上下排版更精致 */
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: 1px;
+        display: flex;
+        flex-direction: column; /* 💡 核心：把横向排列改为纵向（上下结构） */
+        align-items: center; /* 💡 核心：让子元素大字和小字整体居中对齐 */
+        text-align: center; /* 💡 核心：确保文字内容本身也是居中的 */
+        line-height: 1.1;
+    }
+
+    .logo span {
+        font-size: 11px;
+        color: #717681;
+        margin-left: 0;
+        margin-top: 4px; /* 控制小字和上面大字的距离 */
+        letter-spacing: 1.5px;
+        text-align: center;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #717681;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    nav a:hover {
+        color: #ffd043;
+    }
+
+    nav ul li:last-child a {
+        background: #ffd043;
+        color: #000000;
+        padding: 8px 22px;
+        border-radius: 30px;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+
+    nav ul li:last-child a:hover {
+        background: #e0a927;
+        color: #000000;
+        transform: translateY(-1px);
+    }
+
+    /* ===================== 💡 重新调校的 100% 铺满首屏 Hero 样式 ===================== */
+    .content-intro-text {
+        position: relative;
+        width: 100%;
+
+        /* 💡 核心：锁死高度为 100vh 减去头部导航栏的 90px。确保大背景图完美占满第一屏 */
+        height: calc(100vh - 90px);
+        min-height: 700px; /* 提高硬性防护底线，确保任何屏幕尺寸都有足够的高空间展示所有内容 */
+
+        /* 💡 核心优化：高规格自适应背景图调校 */
+        background-image: url('intro-bg.png');
+        background-size: cover; /* 完美缩放：背景图全自动等比例切割，100%铺满容器 */
+        background-position: center; /* 完美对齐：背景图的核心视觉点永远死死锁定在屏幕正中央 */
+        background-repeat: no-repeat; /* 防止重复平铺 */
+        background-attachment: scroll; /* 确保在移动端滚动时背景图不会产生异常形变 */
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .intro-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+                circle,
+                rgba(5, 5, 5, 0.70) 0%,
+                rgba(5, 5, 5, 0.98) 100%
+        );
+        z-index: 1;
+    }
+
+    .intro-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 1200px;
+        width: 100%;
+        height: 100%;
+
+        /* 💡 核心空间解耦：通过 padding 控制上下安全区域 */
+        padding: 0 0 40px 0; /* 底部预留40px呼吸边距 */
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
+
+    /* 💡 新增：通过智能推顶技术，把上方所有文字和联系方式垂直向下平滑推送，同时确保底部4个大卡片死死卡在最底端不乱动 */
+    .intro-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: auto; /* ⚡ 黄金魔法属性：把上方内容往下推到黄金视觉点 */
+    }
+
+    .content-intro-text h2 {
+        color: #ffd043;
+        font-size: 72px;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        line-height: 1.1;
+    }
+
+    /* 副标题微调 */
+    .hero-subtitle {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+        opacity: 0.85;
+    }
+
+    .time-highlight {
+        color: #ffd043;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+
+    /* 呼吁行动按钮 */
+    .lozeno-cta-btn {
+        margin-top: 10px;
+        background: #ffd043;
+        color: #000;
+        border: none;
+        padding: 14px 40px;
+        border-radius: 16px;
+        font-size: 18px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .lozeno-cta-btn:hover {
+        transform: scale(1.03);
+        background: #e0a927;
+    }
+
+    /* ===================== 💡 夹在中间的轻量级联系区样式 ===================== */
+    .lz-contact-section-inline {
+        width: 100%;
+        margin-top: 35px; /* 控制联系胶囊和上方按钮的距离 */
+        margin-bottom: auto; /* ⚡ 黄金魔法属性：确保和底部四大优势中间产生弹性呼吸空隙，让整体结构绝不上浮 */
+        display: flex;
+        justify-content: center;
+    }
+
+    .contact-methods-inline {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .contact-tag-inline {
+        background: rgba(15, 17, 21, 0.85);
+        border: 1px solid rgba(255, 208, 67, 0.2); /* 微弱黑金发光边框 */
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 15px;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transition: 0.3s;
+    }
+
+    .contact-tag-inline:hover {
+        border-color: #ffd043;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(255, 208, 67, 0.1);
+    }
+
+    .card-icon-inline {
+        font-size: 18px;
+    }
+
+    .lz-highlight-inline {
+        color: #ffd043;
+        font-weight: 800;
+    }
+
+    /* ===================== 统计数据区 (Stats) ===================== */
+    .intro-stats {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 120px; /* 完美承载在1200宽内 */
+        width: 100%;
+        margin-top: 40px; /* 给卡片上方留出固定间距 */
+        margin-bottom: 0;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .stat-item h3 {
+        color: #ffd043;
+        font-size: 36px;
+        font-weight: 800;
+        margin: 0 0 12px 0;
+        letter-spacing: -0.5px;
+        font-family: 'SF Pro Display', '-apple-system', 'Roboto', sans-serif;
+    }
+
+    .stat-item p {
+        color: #565b66;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-shadow: none;
+        margin: 0;
+    }
+
+    /* ===================== 💡 移出来的独立仪表盘大盒子样式 ===================== */
+    .independent-dashboard-section {
+        width: 100%;
+        background: #050505;
+        padding: 100px 20px 60px 20px; /* 给予它极为宽敞的上下滚动呼吸空间 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .lz-dashboard-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .lz-db-dashboard {
+        width: 480px;
+        background: rgba(15, 15, 15, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 24px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        box-sizing: border-box;
+    }
+
+    .lz-db-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding-bottom: 14px;
+        margin-bottom: 20px;
+    }
+
+    .lz-db-status {
+        font-size: 14px;
+        font-weight: 600;
+        color: #8a9bb4;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .lz-db-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #00ff66;
+        border-radius: 50%;
+        animation: lz-status-pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes lz-status-pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 6px rgba(0, 255, 102, 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(0, 255, 102, 0);
+        }
+    }
+
+    .lz-db-tag {
+        font-size: 11px;
+        background: rgba(0, 255, 102, 0.06);
+        border: 1px solid rgba(0, 255, 102, 0.15);
+        padding: 4px 10px;
+        border-radius: 4px;
+        color: #00ff66;
+        font-weight: 600;
+    }
+
+    .lz-db-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .lz-db-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .lz-db-label {
+        font-size: 12px;
+        color: #565b66;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .lz-db-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1;
+    }
+
+    .lz-db-gold {
+        color: #ffd043;
+    }
+
+    .lz-db-green {
+        color: #00ff66;
+    }
+
+    .lz-db-chart-box {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        padding: 16px;
+    }
+
+    .lz-db-chart-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .lz-db-chart-title {
+        color: #565b66;
+    }
+
+    .lz-db-chart-percent {
+        color: #00ff66;
+        font-weight: 700;
+    }
+
+    .lz-db-svg {
+        width: 100%;
+        height: 60px;
+        display: block;
+    }
+
+    .lz-db-svg path {
+        stroke: #ffd043;
+        stroke-width: 2.5;
+        fill: none;
+        stroke-linecap: round;
+        filter: drop-shadow(0px 2px 8px rgba(255, 208, 67, 0.4));
+    }
+
+    /* ===================== 主体网格布局（文章列表） ===================== */
+    .container {
+        width: 100%;
+        max-width: 1400px;
+        margin: 30px auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+
+    .card {
+        background: #0f1115;
+        border: 1px solid #1c1e22;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: #ffd043;
+    }
+
+    .card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .card-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 180px;
+        box-sizing: border-box;
+    }
+
+    .card h3 {
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        min-height: 60px;
+    }
+
+    .card h3 a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .card h3 a:hover {
+        color: #ffd043;
+    }
+
+    .card p {
+        color: #717681;
+        line-height: 1.8;
+        font-size: 14px;
+        flex: 1;
+        margin: 0;
+    }
+
+    .date {
+        margin-top: auto;
+
+        /* ===================== 📱 专为手机端（超窄屏）高精度自适应调校 ===================== */
+        @media (max-width: 500px) {
+            /* --- 1. 彻底修复头部导航栏错位 --- */
+            header {
+                height: auto; /* 手机端允许高度自适应，防止卡死 90px 导致文字溢出 */
+                padding: 15px 0;
+            }
+
+            .header-container {
+                flex-direction: column; /* 手机端让 Logo 和 导航菜单 变成上下叠放 */
+                gap: 12px;
+                padding: 0 15px;
+            }
+
+            .logo {
+                font-size: 24px; /* 手机端缩小 Logo 主标题字号 */
+            }
+
+            .logo span {
+                font-size: 10px; /* 手机端缩小 Logo 副标题字号 */
+            }
+
+            nav ul {
+                gap: 10px; /* 剧烈缩减菜单之间的横向间距，防止文字打架 */
+                flex-wrap: wrap; /* 💡 核心：如果按钮太多，允许它们自动换到下一行，绝不重叠 */
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 12px; /* 降低菜单文字字号 */
+                padding: 4px 6px;
+            }
+
+            nav ul li:last-child a {
+                padding: 6px 14px; /* 缩小最后一个“会员服务”黄色按钮的内边距 */
+                font-size: 12px;
+            }
+
+            /* --- 2. 彻底修复 Hero 巨幕区在手机端的包裹感 --- */
+            .content-intro-text {
+                height: auto; /* 💡 致命核心：手机端垂直空间不够，【绝对不能写死 100vh】，必须改为 auto 让内容自然向下撑开！ */
+                min-height: 100vh; /* 保证至少有一屏高 */
+                padding: 40px 15px; /* 缩减上下内边距 */
+            }
+
+            .intro-content {
+                justify-content: center;
+                gap: 35px; /* 用统一的间距拉开组件，代替 auto */
+                padding: 0;
+            }
+
+            .content-intro-text h2 {
+                font-size: 36px; /* 💡 核心：把超大的 72px 缩小到 36px，防止手机端单词断行或超屏 */
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 14px; /* 缩小副标题 */
+                padding: 0 10px;
+            }
+
+            /* --- 3. 彻底修复联系方式胶囊 --- */
+            .contact-methods-inline {
+                flex-direction: column; /* 手机端微信和TG必须上下叠放 */
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .contact-tag-inline {
+                width: 90%; /* 撑开胶囊宽度，让手机端点触更方便 */
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            /* --- 4. 彻底修复 4 大核心优势在手机端的毁灭性重叠 --- */
+            .intro-stats {
+                flex-direction: column; /* 💡 致命核心：横排直接改竖排！让 4 个数字从左到右并排，变成从上到下整齐排队 */
+                align-items: center;
+                gap: 25px; /* 设置舒适的上下间距 */
+                margin-top: 20px;
+            }
+
+            .stat-item h3 {
+                font-size: 32px; /* 适度缩小优势数字 */
+                margin-bottom: 6px;
+            }
+
+            .stat-item p {
+                font-size: 11px;
+                letter-spacing: 2px; /* 适度紧缩字间距防换行 */
+            }
+        }
+
+
+    </style>
 </head>
 <body>
 <header>
@@ -514,10 +633,6 @@ nav ul li:last-child a:hover {
         </nav>
     </div>
 </header>
-
-
-
-
 
 
 <!-- ⬇️ 【完整内容】居中文案组件：横跨3列，不破坏大框架 ⬇️ -->
@@ -614,7 +729,7 @@ nav ul li:last-child a:hover {
                     <span class="lz-db-chart-percent">+342.8%</span>
                 </div>
                 <svg class="lz-db-svg" viewBox="0 0 400 60">
-                    <path d="M 10 50 Q 100 45 200 30 T 390 10" />
+                    <path d="M 10 50 Q 100 45 200 30 T 390 10"/>
                 </svg>
             </div>
         </div>
@@ -624,9 +739,8 @@ nav ul li:last-child a:hover {
 <hr class="lz-global-divider">
 
 
-    </div>
 </div>
-
+</div>
 
 
 <div class="container">
@@ -634,12 +748,10 @@ nav ul li:last-child a:hover {
     <div class="pagination" id="pagination"></div>
     <div class="content-footer-text">
         <h3>© XAUUSD.EA 技术支持与风险提示</h3>
-        <p>这里可以填写你网站的版权声明、风险提示、免责细则，或者任何你想对读者说的话。它会自动在 4 个卡片的正下方完美居中并横向铺满展示。</p>
+        <p>这里可以填写你网站的版权声明、风险提示、免责细则，或者任何你想对读者说的话。它会自动在 4
+            个卡片的正下方完美居中并横向铺满展示。</p>
     </div>
 </div>
-
-
-
 
 
 <footer>
@@ -647,49 +759,49 @@ nav ul li:last-child a:hover {
 </footer>
 
 <script>
-const cardsPerPage = 6;
-let currentPage = 1;
-let allCards = [];
+    const cardsPerPage = 6;
+    let currentPage = 1;
+    let allCards = [];
 
-// 分页切换显示逻辑
-function showPage(page){
-    currentPage = page;
-    allCards.forEach((card, index) => {
-        if(index >= (page - 1) * cardsPerPage && index < page * cardsPerPage) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-    createButtons();
-}
-
-// 动态创建分页按钮
-function createButtons(){
-    const totalPages = Math.ceil(allCards.length / cardsPerPage);
-    const pagination = document.getElementById('pagination');
-    pagination.innerHTML = '';
-
-    for(let i = 1; i <= totalPages; i++){
-        const btn = document.createElement('button');
-        btn.innerText = i;
-        if(i === currentPage){
-            btn.classList.add('active');
-        }
-        btn.onclick = () => showPage(i);
-        pagination.appendChild(btn);
+    // 分页切换显示逻辑
+    function showPage(page) {
+        currentPage = page;
+        allCards.forEach((card, index) => {
+            if (index >= (page - 1) * cardsPerPage && index < page * cardsPerPage) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        createButtons();
     }
-}
 
-// 异步抓取 JSON 数据并渲染
-fetch('articles.json')
-.then(res => res.json())
-.then(data => {
-    const container = document.getElementById('articleContainer');
-    container.innerHTML = ''; // 清空容器
+    // 动态创建分页按钮
+    function createButtons() {
+        const totalPages = Math.ceil(allCards.length / cardsPerPage);
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
 
-    data.forEach(article => {
-        container.innerHTML += `
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = i;
+            if (i === currentPage) {
+                btn.classList.add('active');
+            }
+            btn.onclick = () => showPage(i);
+            pagination.appendChild(btn);
+        }
+    }
+
+    // 异步抓取 JSON 数据并渲染
+    fetch('articles.json')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('articleContainer');
+            container.innerHTML = ''; // 清空容器
+
+            data.forEach(article => {
+                container.innerHTML += `
         <div class="card">
             <a href="${article.url}">
                 <img src="${article.thumbnail}" alt="图片描述">
@@ -707,15 +819,15 @@ fetch('articles.json')
             </div>
         </div>
         `;
-    });
+            });
 
-    // 渲染完成后获取所有的卡片节点，并初始化分页
-    allCards = document.querySelectorAll('.card');
-    showPage(1);
-})
-.catch(err => {
-    console.error("加载文章数据失败:", err);
-});
+            // 渲染完成后获取所有的卡片节点，并初始化分页
+            allCards = document.querySelectorAll('.card');
+            showPage(1);
+        })
+        .catch(err => {
+            console.error("加载文章数据失败:", err);
+        });
 </script>
 </body>
 </html>
