@@ -5,295 +5,519 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LOZENO™ - 金融科技量化 EA</title>
 <style>*{margin:0;padding:0;box-sizing:border-box;}
-body{background: #050505;font-family: sans-serif;color: #ffffff;}
+/* ===================== 全局与头部 (Header) ===================== */
+body {
+    background-color: #050505; /* 确保深色系网页不会出现白屏 */
+    color: #ffffff;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
-/* =====================导航栏布局===================== */
 header {
     height: 90px;
     background: #0b0c0e;
     border-bottom: 1px solid #1c1e22;
-    width: 100%; 
+    width: 100%;
     position: sticky;
     top: 0;
     z-index: 9999;
 }
 
 .header-container {
-    max-width: 1920px;
+    max-width: 1400px;
     width: 100%;
     height: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    align-items: center;      
-    padding: 0 40px; 
+    align-items: center;
+    padding: 0 40px;
     box-sizing: border-box;
 }
 
 .logo {
-    font-size: 32px;
-    font-weight: 800 !important;
-    color: #ffffff !important;
-    letter-spacing: +1px;
+    font-size: 28px;        
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
     display: flex;
-    align-items: flex-end;
-    line-height: 1;
+    flex-direction: column; /* 保持纵向排列 */
+    align-items: center;    /* 💡 核心：让子元素（大字和小字）整体在容器中居中对齐 */
+    text-align: center;     /* 💡 核心：确保文字内容本身也是居中的 */
+    line-height: 1.1;       
 }
 
 .logo span {
-    font-size: 13px !important;
-    color: #717681 !important;
-    margin-left: 12px !important;
-    font-weight: 500;
-    padding-bottom: 2px !important; 
-    line-height: 1;
+    font-size: 10px;        
+    color: #717681;
+    margin-left: 0;         
+    margin-top: 2px;        /* 控制小字和上面大字的距离 */
+    letter-spacing: 3px;  
+    text-align: center;     /* 💡 核心：确保小字文本自身居中 */
 }
+
+
 
 nav ul {
     list-style: none;
     display: flex;
     gap: 40px;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 nav a {
     text-decoration: none;
-    color: #717681 !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    transition: color 0.2s ease !important;
+    color: #717681;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
 }
 
 nav a:hover {
-    color: #ffd043 !important; 
-}
-
-@keyframes button-glow {
-    0%, 100% { box-shadow: 0 0 15px rgba(255, 208, 67, 0.2); }
-    50% { box-shadow: 0 0 30px rgba(255, 208, 67, 0.5); }
+    color: #ffd043;
 }
 
 nav ul li:last-child a {
-    background-color: #ffd043 !important;
-    color: #000000 !important;
-    padding: 8px 22px !important;
-    border-radius: 30px !important;
-    font-weight: 700 !important;
-    font-size: 13px !important;
-    display: inline-block;
-    animation: button-glow 2.5s infinite ease-in-out !important; 
-    transition: background-color 0.2s, transform 0.1s !important;
+    background: #ffd043;
+    color: #000000;
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: 0.2s;
 }
 
 nav ul li:last-child a:hover {
-    background-color: #e0a927 !important;
-    color: #000000 !important;
+    background: #e0a927;
+    color: #000000; /* 确保悬停时文字依然保持黑色可见 */
+    transform: translateY(-1px);
 }
 
-/* =====================主体网格布局（文章）===================== */
-.container{
-    width:1600px;
-    max-width:95%;
-    margin:30px auto;
-    gap:30px;
-}
-
-.content{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:25px;
-}
-
-.card{
-    background:#0f1115;
-    border: 1px solid #1c1e22;
-    border-radius:12px;
-    overflow:hidden;
-    transition:0.3s;
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-}
-
-.card:hover{
-    transform:translateY(-5px);
-    border-color: #ffd043;
-}
-
-.card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-}
-
-.card-content{
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-    height:180px;
-}
-
-.card h3{
-    font-size:20px;
-    line-height:1.5;
-    margin-bottom:12px;
-    min-height:60px;
-}
-
-.card h3 a{
-    text-decoration:none;
-    color:#ffffff;
-}
-.card h3 a:hover{
-    color:#ffd043;
-}
-
-.card p{
-    color:#717681;
-    line-height:1.8;
-    font-size:14px;
-    flex:1;
-}
-
-.date{
-    margin-top:auto;
-    padding-top:15px;
-    color:#999;
-    font-size:13px;
-}
-
-@media(max-width:1200px){.content{grid-template-columns:repeat(2,1fr); }} 
-/* ===================== 📱 手机端适配专属优化 ===================== */
-@media(max-width: 900px) { 
-    
-    /* 1. 强行解除电脑端 90px 的高度限制，让手机导航栏根据内容自动伸展高度 */
-    header {
-        height: auto !important;
-        padding: 20px 15px !important;
-    }
-
-    /* 2. 让包裹盒子在手机上变成上下垂直排列，不再横向撑开 */
-    .header-container {
-        flex-direction: column !important;
-        gap: 15px !important;
-        padding: 0 15px !important;
-    }
-
-    /* 3. 让 Logo 在手机屏幕上居中显示 */
-    .logo {
-        justify-content: center !important;
-        margin-bottom: 5px;
-    }
-
-    /* 4. 🚀 最核心的修改：让 5 个菜单菜单在手机上变成横向一排、居中自动换行，不再贴在最右边 */
-    nav ul {
-        display: flex !important;
-        flex-direction: row !important; /* 确保是横向一排 */
-        flex-wrap: wrap !important;     /* 屏幕装不下时自动换到下一行 */
-        justify-content: center !important; /* 整体居中显示 */
-        gap: 15px 20px !important;       /* 缩小字与字之间的间距 */
-        margin-top: 5px !important;
-    }
-
-    /* 5. 🛠️ 拯救那个变成垂直椭圆的会员服务按钮 */
-    nav ul li:last-child a {
-        display: inline-block !important;
-        padding: 6px 16px !important;    /* 缩小手机上按钮的厚度 */
-        border-radius: 20px !important;
-        white-space: nowrap !important;  /* 🚀 关键：强行让“会员服务”四个字横向排列，绝不准换行竖排 */
-    }
-
-    /* 6. 主体卡片容器在手机上全部变为 1 列顶满 */
-    .container {
-        width: 100% !important;
-        padding: 10px !important;
-    }
-    
-    .content {
-        grid-template-columns: (2, 1fr) !important;
-        gap: 12px !important; 
-    }
-}
-
-
+/* ===================== 巨幕介绍区 (Hero Banner) ===================== */
 .content-intro-text {
-    text-align: center; 
-    grid-column: 1 / -1; 
-    margin-top: 100px;
-    margin-bottom: 35px;
-    padding: 0 20px;
+    position: relative;
     width: 100%;
+    min-height: 70vh;
+    background-image: url('intro-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    padding: 140px 20px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.intro-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle,
+        rgba(5,5,5,0.75) 0%,
+        rgba(5,5,5,0.98) 100%
+    );
+    z-index: 1;
+}
+
+.intro-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 确保内容整体居中 */
+    gap: 20px; /* 统一控制间距 */
 }
 
 .content-intro-text h2 {
-    color: #ffd043 !important; 
-    font-size: 28px !important;
-    font-weight: 800 !important;
-    margin-bottom: 12px !important;
+    color: #ffd043;
+    font-size: 72px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    line-height: 1.1;
 }
 
-.content-intro-text p {
-    color: #717681 !important; 
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    line-height: 1.6 !important;
+.content-intro-text .intro-content > p {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto; /* 移除破坏间距的 top:20px，交由 gap 统一控制 */
+    text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+    opacity: 0.85;
 }
 
-.content-intro-text + div:not(.content) {
-    display: none !important;
+.time-highlight {
+    color: #ffd043;
+    font-weight: 800;      
+    letter-spacing: 2px; 
 }
 
+/* 呼吁行动按钮 */
+.lozeno-cta-btn {
+    margin-top: 10px;
+    background: #ffd043;
+    color: #000;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lozeno-cta-btn:hover {
+    transform: scale(1.03);
+    background: #e0a927;
+}
+
+/* ===================== 统计数据区 (Stats) ===================== */
+.intro-stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 140px;
+    margin-top: 60px;
+    width: 100%;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;           
+    text-align: center;
+}
+
+.stat-item h3 {
+    color: #ffd043; 
+    font-size: 36px; 
+    font-weight: 800; 
+    margin: 0 0 12px 0; 
+    letter-spacing: -0.5px;         
+    font-family: 'SF Pro Display', '-apple-system', 'Roboto', sans-serif;
+}
+
+.stat-item p {
+    color: #565b66; 
+    font-size: 11px; 
+    font-weight: 700;     
+    letter-spacing: 3px; 
+    text-shadow: none;   
+    margin: 0;
+}
+
+/* ===================== 仪表盘区 (Dashboard) ===================== */
+.lz-dashboard-wrapper {
+    width: 100%;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin: 60px 0 80px 0; 
+    box-sizing: border-box;
+    background: transparent; 
+    border: none;            
+    box-shadow: none;
+}
+
+.lz-db-dashboard {
+    width: 480px;   
+    background: rgba(15, 15, 15, 0.85); 
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 16px; 
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); 
+    box-sizing: border-box;
+}
+
+.lz-db-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06); 
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+}
+
+.lz-db-status {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8a9bb4;             
+    display: flex;
+    align-items: center;
+    gap: 10px;                  
+}
+
+.lz-db-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff66;   
+    border-radius: 50%;
+    animation: lz-status-pulse 2s infinite ease-in-out; 
+}
+
+@keyframes lz-status-pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+}
+
+.lz-db-tag {
+    font-size: 11px;
+    background: rgba(0, 255, 102, 0.06); 
+    border: 1px solid rgba(0, 255, 102, 0.15);
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: #00ff66;
+    font-weight: 600;
+}
+
+.lz-db-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;                  
+    margin-bottom: 24px;
+}
+
+.lz-db-card {
+    background: rgba(255, 255, 255, 0.02); 
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;                   
+    text-align: left; 
+}
+
+.lz-db-label {
+    font-size: 12px;
+    color: #565b66;             
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.lz-db-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;             
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1;
+}
+
+.lz-db-gold { color: #ffd043; }  
+.lz-db-green { color: #00ff66; } 
+
+.lz-db-chart-box {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.lz-db-chart-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.lz-db-chart-title { color: #565b66; }
+.lz-db-chart-percent { color: #00ff66; font-weight: 700; }
+
+.lz-db-svg {
+    width: 100%;
+    height: 60px;
+    display: block;
+}
+
+.lz-db-svg path {
+    stroke: #ffd043;            
+    stroke-width: 2.5;          
+    fill: none;                 
+    stroke-linecap: round;      
+    filter: drop-shadow(0px 2px 8px rgba(255, 208, 67, 0.4));
+}
+
+/* ===================== 主体网格布局（文章列表） ===================== */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: #0f1115;
+    border: 1px solid #1c1e22;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #ffd043;
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 180px;
+    box-sizing: border-box;
+}
+
+.card h3 {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    min-height: 60px;
+}
+
+.card h3 a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.card h3 a:hover {
+    color: #ffd043;
+}
+
+.card p {
+    color: #717681;
+    line-height: 1.8;
+    font-size: 14px;
+    flex: 1;
+    margin: 0;
+}
+
+.date {
+    margin-top: auto;
+    padding-top: 15px;
+    color: #999;
+    font-size: 13px;
+}
+
+/* ===================== 底部横幅与页脚 (Footer Banner) ===================== */
 .content-footer-text {
     text-align: center;
-    margin-top: 50px;
-    margin-bottom: 40px;
-    width: 100%;
-    background-image: url('footer-bg.png') !important; 
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    padding: 600px 40px !important; 
-    border-radius: 12px !important; 
+    margin: 50px auto 40px;
+    width: calc(100% - 40px); /* 留出两边间距 */
+    max-width: 1400px;
+    background-image: url('footer-bg.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 80px 40px; /* 修复：从巨大的 600px 减小至合理的 80px 确保样式平衡 */
+    min-height: 250px;  /* 保证背景图展示的同时不会把页面撑开上千像素 */
+    border-radius: 12px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .content-footer-text h3 {
-    color: #ffd043 !important; 
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    margin-bottom: 12px !important;
+    color: #ffd043; 
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
 }
 
 .content-footer-text p {
-    color: #e5e5e5 !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    line-height: 1.6 !important;
+    color: #e5e5e5;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
-footer{
-    text-align:center;
-    padding:40px;
-    color:#888;
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #888;
 }
+
+/* 全局分割线 */
+.lz-global-divider {
+    width: 100%;  
+    border: none; 
+    height: 1px;    
+    background: linear-gradient(to right, rgba(5,5,5,0) 0%, rgba(255, 208, 67, 0.3) 50%, rgba(5,5,5,0) 100%);
+    margin: 30px 0; 
+    box-sizing: border-box;
+}
+
+/* ===================== 完美的响应式媒体查询断点 ===================== */
+@media (max-width: 1200px) {
+    .content {
+        grid-template-columns: repeat(3, 1fr); /* 1200px 优雅地变为 3 列而不会由于太宽变形 */
+    }
+}
+
+@media (max-width: 950px) {
+    .content {
+        grid-template-columns: repeat(2, 1fr); /* 950px 变为 2 列 */
+    }
+    .intro-stats {
+        gap: 60px; /* 缩小数字统计间距 */
+    }
+    .content-intro-text h2 {
+        font-size: 52px; /* 缩减 Banner 标题大小防超屏 */
+    }
+}
+
+@media (max-width: 768px) {
+    .intro-stats {
+        flex-direction: column; /* 手机端统计变为上下排布防止内容横向溢出 */
+        gap: 30px;
+        margin-top: 40px;
+    }
+
 </style>
 </head>
 <body>
-<header> <div class="header-container">
-    <div class="logo">
-        LOZENO.EA
-        <span>STRATEGY.FRIST</span>
+<header> 
+    <div class="header-container">
+        <div class="logo">
+            LOZENO.EA
+            <span>STRATEGY.FIRST</span> <!-- 修正了 FIRST 的拼写 -->
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">首页</a></li>
+                <li><a href="javascript:void(0);">最新分析</a></li> <!-- 替换了 # 防跳顶 -->
+                <li><a href="videos.html">最新视频</a></li>
+                <li><a href="free-resources.html">免费资源</a></li>
+                <li><a href="javascript:void(0);">会员服务</a></li> <!-- 替换了 # 防跳顶 -->
+            </ul>
+        </nav>
     </div>
-    <nav>
-        <ul>
-            <li><a href="index.html">首页</a></li>
-            <li><a href="#">最新分析</a></li>
-            <li><a href="videos.html">最新视频</a></li>
-            <li><a href="free-resources.html">免费资源</a></li>
-            <li><a href="#">会员服务</a></li>
-        </ul>
-    </nav>
-</div>
 </header>
 
 
@@ -301,13 +525,116 @@ footer{
 
 
 
-
 <!-- ⬇️ 【完整内容】居中文案组件：横跨3列，不破坏大框架 ⬇️ -->
-<div class="container">
-    <div class="content-intro-text">
-        <h2>欢迎来到 XAUUSD.EA 黄金策略分析中心</h2>
-        <p>这里可以填写你的副标题或任何你想说的话，它会自动在 6 个卡片上方完美居中展示。</p>
+<div class="content-intro-text">
+
+    <div class="intro-overlay"></div>
+
+    <div class="intro-content">
+
+        <!-- HERO 区 -->
+        <div class="intro-hero">
+            <h2>运用LOZENO策略进行交易</h2>
+
+            <!-- 优化：为了让 CSS 完美抓取，保持其在 intro-hero 内的纯净 -->
+            <p>
+                让自动化 EA 成为你的 
+                <span class="time-highlight">24/7</span> 
+                财富增值引擎
+            </p>
+
+            <div class="cta-box">
+                <button class="lozeno-cta-btn">免费获取 ✦</button>
+            </div>
+        </div>
+
+        <!-- STATS 区 -->
+        <div class="intro-stats">
+            <div class="stat-item">
+                <h3>$150K</h3>
+                <p>MAX ACCOUNT</p>
+            </div>
+
+            <div class="stat-item">
+                <h3>90%</h3>
+                <p>PROFIT SPLIT</p>
+            </div>
+
+            <div class="stat-item">
+                <h3>7 Days</h3>
+                <p>MIN TO PAYOUT</p>
+            </div>
+
+            <div class="stat-item">
+                <h3>TOP</h3>
+                <p>SUPPORT</p>
+            </div>
+        </div>
+
+        <!-- DASHBOARD 区 -->
+        <div class="lz-dashboard-wrapper">
+
+            <div class="lz-db-dashboard">
+
+                <div class="lz-db-header">
+                    <div class="lz-db-status">
+                        <span class="lz-db-dot"></span>
+                        LOZENO EA v4.2 实盘监控中
+                    </div>
+                    <div class="lz-db-tag">AI 神经网络算法</div>
+                </div>
+
+                <div class="lz-db-grid">
+
+                    <!-- 修复：将内部的 p 和 h3 全部换成 div，防止被外部的通用样式乱插脚，确保字号和颜色完全听从各自 class 的指挥 -->
+                    <div class="lz-db-card">
+                        <div class="lz-db-label">历史风控胜率 (Win Rate)</div>
+                        <div class="lz-db-value lz-db-gold">78.4%</div>
+                    </div>
+
+                    <div class="lz-db-card">
+                        <div class="lz-db-label">最大历史回撤 (Max DD)</div>
+                        <div class="lz-db-value lz-db-green">&lt; 4.82%</div>
+                    </div>
+
+                    <div class="lz-db-card">
+                        <div class="lz-db-label">当前运行总天数</div>
+                        <div class="lz-db-value">1,240 天</div>
+                    </div>
+
+                    <div class="lz-db-card">
+                        <div class="lz-db-label">总平仓获利交易</div>
+                        <div class="lz-db-value">14,892 笔</div>
+                    </div>
+
+                </div>
+
+                <div class="lz-db-chart-box">
+
+                    <div class="lz-db-chart-header">
+                        <span class="lz-db-chart-title">净值增长曲线 (Equity Curve)</span>
+                        <span class="lz-db-chart-percent">+342.8%</span>
+                    </div>
+
+                    <!-- 这里的 viewBox="0 0 400 60" 配合得非常好，SVG 折线会完美顺滑地舒展 -->
+                    <svg class="lz-db-svg" viewBox="0 0 400 60">
+                        <path d="M 10 50 Q 100 45 200 30 T 390 10" />
+                    </svg>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr class="lz-global-divider">
+
     </div>
+</div>
+
+
+
+<div class="container">
     <div class="content" id="articleContainer"><!-- 这里由 JavaScript 动态生成卡片 --></div>
     <div class="pagination" id="pagination"></div>
     <div class="content-footer-text">
@@ -315,6 +642,10 @@ footer{
         <p>这里可以填写你网站的版权声明、风险提示、免责细则，或者任何你想对读者说的话。它会自动在 4 个卡片的正下方完美居中并横向铺满展示。</p>
     </div>    
 </div>
+
+
+
+
 
 <footer>
     © 2026 zackxau | Gold Trading Room
