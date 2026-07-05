@@ -7,64 +7,118 @@
     <title>最新视频 - LOZENO™ 黄金作战室</title>
 
     <style>
-        /* 全局暗黑背景，与首页和最新分析完美对齐 */
+        /* ==================== ❶ 完美同步：首页最顶级的导航栏 CSS 样式 ==================== */
         body { 
             background-color: #0b0b0b; 
             color: #ffffff; 
             font-family: "Microsoft YaHei", Arial, sans-serif; 
             margin: 0; 
         }
-        
-        /* 头部高级导航栏样式 */
-        .header-container { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 20px 40px; 
-            background: #000000; 
+
+        header {
+            background: #000000;
+            height: 90px;
+            display: flex;
+            align-items: center;
             border-bottom: 1px solid #1a1a1a;
         }
-        .logo { 
-            font-weight: bold; 
-            font-size: 20px; 
-            line-height: 1.2;
+
+        .header-container {
+            max-width: 1400px;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            line-height: 1.1;
         }
         .logo a {
             text-decoration: none;
             color: #ffffff;
         }
-        .logo span { 
-            display: block; 
-            font-size: 10px; 
-            color: #888; 
-            letter-spacing: 1px;
-        }
-        
-        /* 导航菜单链接 */
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 24px; 
-            margin: 0; 
-            padding: 0; 
-        }
-        nav ul li a { 
-            color: #aaaaaa; 
-            text-decoration: none; 
-            font-size: 14px; 
-            transition: color 0.2s;
-        }
-        nav ul li a:hover { 
-            color: #ffcc00; /* 悬浮金黄变色效果 */
-        }
-        .nav-active {
-            color: #ffffff !important;
-            font-weight: bold;
-            border-bottom: 2px solid #ffcc00;
-            padding-bottom: 4px;
+
+        .logo span {
+            font-size: 11px;
+            color: #717681;
+            margin-top: 4px;
+            letter-spacing: 1.5px;
         }
 
-        /* 主体视频容器居中 */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #717681;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        nav a:hover, .nav-active {
+            color: #ffd043 !important; /* 悬浮或激活状态变成亮金色 */
+        }
+
+        nav ul li:last-child a {
+            background: #ffd043;
+            color: #000000;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        nav ul li:last-child a:hover {
+            background: #e0a927;
+            transform: translateY(-1px);
+        }
+
+        /* 📱 手机端导航栏自适应安全防护盾（完美同步首页） */
+        @media (max-width: 768px) {
+            header { height: 70px !important; }
+            .header-container {
+                padding: 0 20px !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
+            .logo {
+                font-size: 20px !important;
+                align-items: flex-start !important;
+                text-align: left !important;
+            }
+            .logo span { font-size: 9px !important; margin-top: 2px !important; }
+            nav ul li:not(:last-child) { display: none !important; }
+            nav ul { gap: 0 !important; }
+            nav ul li:last-child a {
+                font-size: 12px !important;
+                padding: 6px 14px !important;
+                white-space: nowrap !important;
+            }
+        }
+
+        /* ==================== ❷ 最新视频页：主体大盒子与视频排版样式 ==================== */
         .container { 
             width: 1200px; 
             max-width: 95%; 
@@ -78,7 +132,6 @@
             letter-spacing: 0.5px;
         }
         
-        /* 悬浮立体视频大盒子 */
         .video-box { 
             background: #121212; 
             border-radius: 16px; 
@@ -87,7 +140,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
         
-        /* 视频框架响应式长宽比安全控制 */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 标准黄金比例锁 */
@@ -104,13 +156,7 @@
             border: none; 
         }
         
-        /* 页脚版权声明区域 */
-        .lz-footer-copyright { 
-            text-align: center; 
-            padding: 60px 0 40px; 
-            color: #555; 
-            font-size: 12px; 
-        }
+        .lz-footer-copyright { text-align: center; padding: 60px 0 40px; color: #555; font-size: 12px; }
     </style>
 </head>
 
@@ -118,32 +164,29 @@
 
 <header>
     <div class="header-container">
-        <!-- 左侧品牌 Logo 盒子 -->
+        <!-- 💡 完美复刻首页大 Logo -->
         <div class="logo">
             <a href="index.html">
                 LOZENO.EA
                 <span>STRATEGY.FIRST</span>
             </a>
         </div>
-        <!-- 右侧互通导航菜单 -->
+        <!-- 💡 完美复刻首页导航，并将最新视频标记为激活高亮 -->
         <nav>
             <ul>
                 <li><a href="index.html">首页</a></li>
                 <li><a href="zuixinfenxi.html">最新分析</a></li>
                 <li><a href="videos.html" class="nav-active">最新视频</a></li>
                 <li><a href="free-resources.html">免费资源</a></li>
-                <li><a href="javascript:void(0);" style="color: #444; cursor: not-allowed;">会员服务</a></li>
+                <li><a href="javascript:void(0);">会员服务</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
 <div class="container">
-
     <h1>最新视频</h1>
-
     <div class="video-box">
-        <!-- 引入 16:9 防变形弹性外壳 -->
         <div class="video-wrapper">
             <iframe
                 src="https://www.youtube.com/embed/Z0pg7DEyVS0"
@@ -151,10 +194,8 @@
             </iframe>
         </div>
     </div>
-
 </div>
 
-<!-- 页脚终点站闭合出口 -->
 <div class="lz-footer-copyright">
     <p>© 2026 LOZENO™ | Quantitative Algorithmic Lab. All Rights Reserved.</p>
 </div>
