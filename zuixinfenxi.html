@@ -2,12 +2,11 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 移动端自适应视口安全锁 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>最新分析 - LOZENO™ 黄金作战室</title>
 
     <style>
-        /* 全局暗黑背景，与视频页、首页完美克隆对齐 */
+        /* ==================== 1. 基础皮肤与大框架 ==================== */
         body { 
             background-color: #0b0b0b; 
             color: #ffffff; 
@@ -15,7 +14,6 @@
             margin: 0; 
         }
         
-        /* 头部高级导航栏样式 */
         .header-container { 
             display: flex; 
             justify-content: space-between; 
@@ -40,7 +38,6 @@
             letter-spacing: 1px;
         }
         
-        /* 导航菜单链接 */
         nav ul { 
             list-style: none; 
             display: flex; 
@@ -57,7 +54,6 @@
         nav ul li a:hover { 
             color: #ffcc00; 
         }
-        /* 让“最新分析”按钮处于高亮选中状态 */
         .nav-active {
             color: #ffffff !important;
             font-weight: bold;
@@ -65,7 +61,7 @@
             padding-bottom: 4px;
         }
 
-        /* 主体容器居中（复刻自视频页 1200px 骨架） */
+        /* 主体布局（对齐视频页 1200px 骨架） */
         .container { 
             width: 1200px; 
             max-width: 95%; 
@@ -79,7 +75,7 @@
             letter-spacing: 0.5px;
         }
         
-        /* 完美继承视频页的悬浮立体大盒子布局 */
+        /* 独立黑金悬浮大盒子 */
         .analysis-box { 
             background: #121212; 
             border-radius: 16px; 
@@ -88,14 +84,14 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
 
-        /* 大盒子内部：融入首页标志性的卡片网格布局（响应式自适应列数） */
+        /* ==================== 2. 精美卡片网格系统 ==================== */
         .article-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
             gap: 24px; 
         }
         
-        /* 深度还原首页精致卡片细节 */
+        /* 深度复刻您的黑金立体卡片 */
         .article-card { 
             background: #1a1a1a; 
             border-radius: 12px; 
@@ -103,22 +99,42 @@
             border: 1px solid #262626; 
             text-decoration: none; 
             color: inherit; 
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; 
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; 
         }
+        
+        /* 悬浮微移加高光金边 */
         .article-card:hover { 
             transform: translateY(-5px); 
-            border-color: #ffcc00; /* 悬浮时带上高端科技金边线 */
-            box-shadow: 0 5px 15px rgba(255,204,0,0.1);
+            border-color: #ffcc00; 
+            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.15);
+        }
+        
+        /* 图片盒子：防变形防拉伸 */
+        .img-wrapper {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            background: #222;
+            border-bottom: 1px solid #262626;
         }
         .card-img { 
             width: 100%; 
-            height: 160px; 
+            height: 100%; 
             object-fit: cover; 
-            background: #222; 
-            border-bottom: 1px solid #262626;
+            transition: transform 0.3s ease;
         }
+        /* 鼠标悬浮时图片轻微放大，极具视觉冲击力 */
+        .article-card:hover .card-img {
+            transform: scale(1.05);
+        }
+        
         .card-body { 
             padding: 18px; 
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
         .card-title { 
             font-size: 16px; 
@@ -129,21 +145,42 @@
             transition: color 0.2s;
         }
         .article-card:hover .card-title {
-            color: #ffcc00; /* 悬浮时标题变金 */
+            color: #ffcc00; 
         }
         .card-desc { 
             font-size: 13px; 
             color: #888; 
             line-height: 1.6; 
-            margin: 0; 
+            margin: 0 0 14px 0; 
             overflow: hidden; 
             text-overflow: ellipsis; 
             display: -webkit-box; 
-            -webkit-line-clamp: 3; 
+            -webkit-line-clamp: 3; /* 最多显示 3 行摘要，超出自动变省略号 */
             -webkit-box-orient: vertical; 
+            flex-grow: 1;
         }
         
-        /* 页脚版权声明区域 */
+        /* 卡片底部附加栏：展示日期与阅读更多 */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #262626;
+            padding-top: 12px;
+            margin-top: auto;
+            font-size: 11px;
+            color: #555;
+        }
+        .read-more {
+            color: #ffcc00;
+            font-weight: bold;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .article-card:hover .read-more {
+            opacity: 1;
+        }
+        
         .lz-footer-copyright { 
             text-align: center; 
             padding: 60px 0 40px; 
@@ -157,14 +194,12 @@
 
 <header>
     <div class="header-container">
-        <!-- 左侧品牌 Logo 盒子 -->
         <div class="logo">
             <a href="index.html">
                 LOZENO.EA
                 <span>STRATEGY.FIRST</span>
             </a>
         </div>
-        <!-- 右侧全通互通导航菜单 -->
         <nav>
             <ul>
                 <li><a href="index.html">首页</a></li>
@@ -178,51 +213,55 @@
 </header>
 
 <div class="container">
-
     <h1>最新分析</h1>
 
-    <!-- 完美大盒子外壳 -->
     <div class="analysis-box">
-        <!-- 所有的历史文章卡片网格都会被 JavaScript 动态无缝渲染进这里 -->
+        <!-- 动态卡片容器 -->
         <div class="article-grid" id="articleGridContainer">
             <p style="color: #666; font-size: 14px;">正在检索云端数据仓库，加载全量历史分析报告...</p>
         </div>
     </div>
-
 </div>
 
-<!-- 页脚封闭出口 -->
 <div class="lz-footer-copyright">
     <p>© 2026 LOZENO™ | Quantitative Algorithmic Lab. All Rights Reserved.</p>
 </div>
 
-<!-- ==================== ⚙️ 核心全量文章自动渲染脚本 ==================== -->
+<!-- ==================== 3. 智能多轨数据对齐脚本 ==================== -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // 请求根目录下的全局文章汇总 articles.json
         fetch('articles.json')
             .then(response => {
-                if (!response.ok) throw new Error('网络异常，无法拉取文章列表数据');
+                if (!response.ok) throw new Error('网络异常');
                 return response.json();
             })
             .then(data => {
                 const gridContainer = document.getElementById('articleGridContainer');
-                gridContainer.innerHTML = ''; // 成功连通后清空加载提示
+                gridContainer.innerHTML = ''; 
 
                 if (data && data.length > 0) {
-                    // 彻底解除首页的 slice(0, 4) 数量限制，forEach 直接循环输出全部文章！
                     data.forEach(post => {
                         const card = document.createElement('a');
                         card.className = 'article-card';
-                        // post.url 会被自动解析为 "article.html?post=文件名.md"
                         card.href = post.url || '#';
 
-                        // 拼装精美卡片（兼容缩略图、标题、摘要数据）
+                        // 💡 智能降级机制：如果 JSON 里没有填摘要或图片，使用优雅的默认值撑开版面
+                        const thumbnailSrc = post.thumbnail || 'intro-bg.png';
+                        const postTitle = post.title || '量化分析报告';
+                        const postSummary = post.summary || post.description || '该报告暂未添加摘要描述，请点击进入正文查看深度数据...';
+                        const postDate = post.date || '策略发布';
+
                         card.innerHTML = `
-                            <img class="card-img" src="${post.thumbnail || 'intro-bg.png'}" alt="${post.title}">
+                            <div class="img-wrapper">
+                                <img class="card-img" src="${thumbnailSrc}" alt="${postTitle}">
+                            </div>
                             <div class="card-body">
-                                <div class="card-title">${post.title || '未命名分析报告'}</div>
-                                <p class="card-desc">${post.summary || post.description || '该量化分析报告暂未添加摘要描述...'}</p>
+                                <div class="card-title">${postTitle}</div>
+                                <p class="card-desc">${postSummary}</p>
+                                <div class="card-footer">
+                                    <span>${postDate}</span>
+                                    <span class="read-more">阅读正文 →</span>
+                                </div>
                             </div>
                         `;
                         gridContainer.appendChild(card);
@@ -232,8 +271,8 @@
                 }
             })
             .catch(error => {
-                console.error('加载失败原因:', error);
-                document.getElementById('articleGridContainer').innerHTML = '<p style="color: #ff3333; font-size: 14px;">全量文章加载失败，请检查网络或刷新页面重试。</p>';
+                console.error('加载失败:', error);
+                document.getElementById('articleGridContainer').innerHTML = '<p style="color: #ff3333; font-size: 14px;">全量文章加载失败，请刷新重试。</p>';
             });
     });
 </script>
