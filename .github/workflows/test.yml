@@ -43,11 +43,11 @@ jobs:
 
                   articles.append({
 
-                      "title": title.group(1).strip() if title else "无标题",
+                      "title": title.group(1) if title else "",
 
                       "description": description.group(1) if description else "",
 
-                      "date": date.group(1).strip() if date else "",
+                      "date": date.group(1)[:10] if date else "",
 
                       "thumbnail": thumbnail.group(1) if thumbnail else "",
 
