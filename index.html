@@ -1449,7 +1449,7 @@
                 const latestArticles = data.slice(0, 4);
 
                latestArticles.forEach(article => {
-                    container.innerHTML += `
+                    container.innerHTML = `
             <div class="card">
                 <!-- 1. 点击图片可以跳转 -->
                 <a href="${article.url}">
