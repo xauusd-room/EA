@@ -1448,25 +1448,32 @@
                 // 精准拦截并只提取 JSON 数据中最前面的 4 个最新文章
                 const latestArticles = data.slice(0, 4);
 
-                latestArticles.forEach(article => {
+               latestArticles.forEach(article => {
                     container.innerHTML += `
-                            <div class="card">
-                                <a href="${article.url}">
-                                    <img src="${article.thumbnail}" alt="图片描述">
-                                </a>
-                                <div class="card-content">
-                                    <h3>
-                                        <a href="${article.url}">
-                                            ${article.title}
-                                        </a>
-                                    </h3>
-                                    <p>${article.description}</p>
-                                    <div class="date">
-                                        ${article.date}
-                                    </div>
-                                </div>
-                            </div>
-                        `;
+            <div class="card">
+                <!-- 1. 点击图片可以跳转 -->
+                <a href="${article.url}">
+                    <img src="${article.thumbnail}" alt="文章封面图">
+                </a>
+
+                <div class="card-content">
+                    <!-- 2. 文章大标题 -->
+                    <h3>
+                        <a href="${article.url}">
+                            ${article.title}
+                        </a>
+                    </h3>
+
+                    <!-- 3. 文章简介 -->
+                    <p>${article.description}</p>
+
+                    <!-- 4. 核心修复：把原先显示 thumbnail 的地方彻底改成日期 -->
+                    <div class="date">
+                        发布日期：${article.date}
+                    </div>
+                </div>
+            </div>
+        `;
                 });
             })
             .catch(err => {
