@@ -1,5 +1,12 @@
 [
   {
+    "title": "图表加载异常，SMC分析暂停",
+    "description": "因图片无法显示，XAUUSD 1小时图分析未能进行。",
+    "date": "2026-07-30",
+    "thumbnail": "/resources/1785413137595-TradingView_2026-07-30_2005.png",
+    "url": "article.html?post=2026-07-30-图表加载异常，SMC分析暂停.md"
+  },
+  {
     "title": "XAUUSD 1小时图表加载失败，无法分析",
     "description": "无图表数据，市场结构及交易机会无法判断。",
     "date": "2026-07-28",
